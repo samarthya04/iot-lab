@@ -6,7 +6,7 @@ import datetime
 
 import openai
 
-openai.api_key = "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"
+openai.api_key = "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"
 
 
 def speak(data):
@@ -16,24 +16,6 @@ def speak(data):
     engine.say(data)
     engine.runAndWait()
 
-
-# def get_audio():
-#     r = sr.Recognizer()
-#     with sr.Microphone() as source:
-#         print("Speak:")
-#         r.adjust_for_ambient_noise(source)
-#         audio = r.listen(source)
-#         # said = ""
-#         said = r.recognize_google(audio)
-#
-#         try:
-#             print("You said: \n" + said)
-#         except sr.UnknownValueError:
-#             print("Sorry, could not understand your speech.")
-#         except sr.RequestError as e:
-#             print("Request error; {0}".format(e))
-#
-#     return said.lower()
 def get_audio():
     engine = pyttsx3.init()
     r = sr.Recognizer()
@@ -55,20 +37,6 @@ def get_audio():
         engine.say("Sorry, I could not process your request.")
         engine.runAndWait()
     return voice_command.lower()
-
-
-def query(user_query):
-    url = "https://www.google.co.in/search?q=" + user_query
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
-                      '(KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36'
-    }
-    page = requests.get(url, headers=headers)
-    soup = BeautifulSoup(page.content, 'html.parser')
-    results = soup.find(class_='Z0LcW t2b5Cf').get_text()
-    print(results)
-    return results
-
 
 def weather():
     city = get_audio()
@@ -137,12 +105,10 @@ while True:
                 date_string = now.strftime("Today's date is %B %d, %Y.")
                 speak(date_string)
                 print(date_string)
-
-            if 'stop' in text:
-                flag = 1
-                speak("Terminating")
-                print("Terminating")
-                break
+            if 'iot' in texts:
+                speak('Terminating')
+                print('Terminating')
+                exit()    
 
             if flag != 1:
                 result = chatgpt(text)
