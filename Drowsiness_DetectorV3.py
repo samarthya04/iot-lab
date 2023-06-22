@@ -43,6 +43,7 @@ def draw_landmarks(image, outputs, land_mark, color):
     nose_tip_point = (int(nose_tip.x * width), int(nose_tip.y * height))
 
     # Calculate angles for head tilt detection
+
     left_head_tilt = calculate_angle(left_eye_point, nose_tip_point, (left_eye_point[0], right_eye_point[1]))
     right_head_tilt = calculate_angle(nose_tip_point, right_eye_point, (right_eye_point[0], left_eye_point[1]))
     up_head_tilt = calculate_angle(right_eye_point, left_eye_point, (nose_tip_point[0], right_eye_point[1]))
@@ -143,6 +144,8 @@ frame_count = 0
 min_frame = 6
 min_tolerance = 0.2
 
+ratio=0
+ratio_lips =0
 total = 0
 drowsy = 0
 y_1 = np.zeros(100)
